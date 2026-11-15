@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Диёр — личный план похудения</title>
+  <meta name="description" content="Личный сайт для Диёра: расчёт ИМТ, калорий, БЖУ и воды, программа упражнений на неделю, интервальный таймер и дневник веса.">
+  <meta name="theme-color" content="#fff7f2">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <svg class="svg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24">
+      <path d="M12 21s-7.5-4.6-7.5-10A4.5 4.5 0 0 1 12 7.3 4.5 4.5 0 0 1 19.5 11c0 5.4-7.5 10-7.5 10Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+      <path d="M8.6 11.8h2.1l1-2 1.6 4 1-2h2.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <path d="m5 12.5 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h13M13 6.5 18.5 12 13 17.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24">
+      <path d="M5 7h14M10 7V5h4v2M8 7l.7 12h6.6L16 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <svg class="brand-mark"><use href="#i-logo"></use></svg>
+        <span class="brand-name">Диёр</span>
+        <span class="brand-sub">фитнес-план</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Основная навигация">
+        <a href="#calculator">Калькулятор</a>
+        <a href="#workouts">Тренировки</a>
+        <a href="#timer">Таймер</a>
+        <a href="#diary">Дневник</a>
+      </nav>
+
+      <a class="btn btn-primary btn-sm header-cta" href="#calculator">Рассчитать</a>
+      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== Первый экран + калькулятор ===== -->
+    <section class="hero" id="calculator">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container hero-grid">
+
+        <div class="hero-text">
+          <span class="pill">Личный план для Диёра</span>
+          <h1>Худеем <span class="grad">с умом</span>,<br>а не на силе воли</h1>
+          <p class="lead">
+            Введи вес, рост и возраст — получишь свою норму калорий, БЖУ, воды
+            и готовую программу упражнений на неделю. Всё считается прямо в браузере.
+          </p>
+          <ul class="hero-points">
+            <li><svg class="icon"><use href="#i-check"></use></svg>Норма калорий с безопасным дефицитом</li>
+            <li><svg class="icon"><use href="#i-check"></use></svg>Упражнения под твой уровень подготовки</li>
+            <li><svg class="icon"><use href="#i-check"></use></svg>Дневник веса с графиком прогресса</li>
+          </ul>
+        </div>
+
+        <form class="calc card" id="calcForm" novalidate>
+          <div class="calc-head">
+            <h2>Мои данные</h2>
+            <p>Заполни поля — и увидим твой план</p>
+          </div>
+
+          <div class="field">
+            <span class="label">Пол</span>
+            <div class="seg" role="radiogroup" aria-label="Пол">
+              <label class="seg-item">
+                <input type="radio" name="gender" value="f">
+                <span>Женский</span>
+              </label>
+              <label class="seg-item">
+                <input type="radio" name="gender" value="m" checked>
+                <span>Мужской</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="age">Возраст, лет</label>
+              <input id="age" name="age" type="number" inputmode="numeric" min="14" max="90" step="1" placeholder="25" required>
+            </div>
+            <div class="field">
+              <label for="height">Рост, см</label>
+              <input id="height" name="height" type="number" inputmode="numeric" min="120" max="220" step="1" placeholder="165" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="weight">Вес, кг</label>
+              <input id="weight" name="weight" type="number" inputmode="decimal" min="30" max="250" step="0.1" placeholder="65" required>
+            </div>
+            <div class="field">
+              <label for="activity">Активность</label>
+              <select id="activity" name="activity">
+                <option value="1.2">Сидячая</option>
+                <option value="1.375" selected>Лёгкая</option>
+                <option value="1.55">Средняя</option>
+                <option value="1.725">Высокая</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="pace">Темп похудения</label>
+            <select id="pace" name="pace">
+              <option value="0.1">Мягкий — 10% дефицита</option>
+              <option value="0.15" selected>Умеренный — 15%</option>
+              <option value="0.2">Активный — 20%</option>
+            </select>
+          </div>
+
+          <span class="form-error" id="calcError" role="alert"></span>
+          <button class="btn btn-primary btn-block" type="submit">
+            Показать мой план
+            <svg class="icon"><use href="#i-arrow"></use></svg>
+          </button>
+          <p class="calc-note">Данные остаются в браузере и никуда не отправляются.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== Результаты ===== -->
+    <section class="section results" id="results" hidden>
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Твои цифры</span>
+          <h2>План на сегодня</h2>
+          <p id="resultsSummary"></p>
+        </div>
+        <div class="results-grid" id="resultsGrid"></div>
+        <div class="results-actions">
+          <a class="btn btn-primary" href="#workouts">К тренировкам
+            <svg class="icon"><use href="#i-arrow"></use></svg>
+          </a>
+          <a class="btn btn-ghost" href="#diary">Записать вес</a>
+        </div>
+        <p class="disclaimer-inline" id="resultsNote"></p>
+      </div>
+    </section>
+
+    <!-- ===== Тренировки ===== -->
+    <section class="section section-soft" id="workouts">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Упражнения</span>
+          <h2>Программа на неделю</h2>
+          <p>Выбери уровень — и увидишь подходящую нагрузку. Начни с лёгкого, если давно не тренировался.</p>
+        </div>
+
+        <div class="level-switch" role="group" aria-label="Уровень подготовки">
+          <button type="button" class="level-btn" data-level="easy" aria-pressed="true">
+            <strong>Лёгкий</strong>
+            <span>новичок</span>
+          </button>
+          <button type="button" class="level-btn" data-level="medium" aria-pressed="false">
+            <strong>Средний</strong>
+            <span>1–3 месяца</span>
+          </button>
+          <button type="button" class="level-btn" data-level="active" aria-pressed="false">
+            <strong>Активный</strong>
+            <span>уверенный</span>
+          </button>
+        </div>
+
+        <p class="plan-desc" id="planDesc"></p>
+        <div class="week" id="weekGrid"></div>
+
+        <div class="rules card">
+          <h3>Как заниматься, чтобы был результат</h3>
+          <ul>
+            <li><strong>3–4 тренировки в неделю</strong> — этого достаточно. Больше не значит лучше.</li>
+            <li><strong>Разминка 5 минут</strong> перед каждым занятием и растяжка после.</li>
+            <li><strong>Шаги важнее кроссфита:</strong> 7–9 тысяч шагов в день дают больше, чем одна тяжёлая тренировка.</li>
+            <li><strong>Боль — стоп-сигнал.</strong> Если колет в боку или болит сустав, прекращай и отдыхай.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Таймер ===== -->
+    <section class="section" id="timer">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Интервальный таймер</span>
+          <h2>Быстрая тренировка</h2>
+          <p>Выбери режим и жми «Старт». Таймер подскажет, когда работать, а когда отдыхать.</p>
+        </div>
+
+        <div class="timer card" id="timerCard">
+          <div class="timer-modes" role="group" aria-label="Режим таймера">
+            <button type="button" class="mode-btn is-active" data-mode="tabata">Табата 20/10</button>
+            <button type="button" class="mode-btn" data-mode="circle">Круговая 40/20</button>
+            <button type="button" class="mode-btn" data-mode="cardio">Кардио 45/15</button>
+          </div>
+
+          <div class="timer-face">
+            <div class="timer-ring" aria-hidden="true">
+              <svg viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+                <circle class="ring-fg" id="timerRing" cx="60" cy="60" r="52"></circle>
+              </svg>
+            </div>
+            <div class="timer-center">
+              <span class="timer-phase" id="timerPhase" aria-live="polite">Готовность</span>
+              <strong class="timer-time" id="timerTime">00:20</strong>
+              <span class="timer-round" id="timerRound">Раунд 1 из 8</span>
+            </div>
+          </div>
+
+          <div class="timer-controls">
+            <button class="btn btn-primary" id="timerStart" type="button">Старт</button>
+            <button class="btn btn-ghost" id="timerReset" type="button">Сброс</button>
+            <label class="sound-toggle">
+              <input type="checkbox" id="timerSound" checked>
+              <span>Звук</span>
+            </label>
+          </div>
+
+          <p class="timer-hint" id="timerHint">Подойдут любые упражнения: приседания, планка, джампинг-джек, ходьба на месте.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Дневник ===== -->
+    <section class="section section-soft" id="diary">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Дневник</span>
+          <h2>Динамика веса</h2>
+          <p>Записывай вес раз в неделю в одно и то же время — так график будет честным.</p>
+        </div>
+
+        <div class="diary-grid">
+          <form class="card diary-form" id="diaryForm" novalidate>
+            <h3>Новая запись</h3>
+            <div class="field">
+              <label for="diaryDate">Дата</label>
+              <input id="diaryDate" type="date" required>
+            </div>
+            <div class="field">
+              <label for="diaryWeight">Вес, кг</label>
+              <input id="diaryWeight" type="number" inputmode="decimal" min="30" max="250" step="0.1" placeholder="64,5" required>
+            </div>
+            <span class="form-error" id="diaryError" role="alert"></span>
+            <button class="btn btn-primary btn-block" type="submit">Сохранить</button>
+            <p class="calc-note">Записи хранятся только в этом браузере.</p>
+          </form>
+
+          <div class="card diary-chart">
+            <div class="chart-head">
+              <h3>График</h3>
+              <span class="chart-delta" id="diaryDelta"></span>
+            </div>
+            <div class="chart-wrap" id="chartWrap"></div>
+            <ul class="diary-list" id="diaryList"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Советы ===== -->
+    <section class="section" id="tips">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Без магии</span>
+          <h2>Три вещи, которые работают</h2>
+        </div>
+
+        <div class="tips">
+          <article class="tip card">
+            <span class="tip-emoji" aria-hidden="true">🍽️</span>
+            <h3>Белок в каждый приём</h3>
+            <p>Яйца, творог, рыба, курица или бобовые. Белок держит сытость и сохраняет мышцы при дефиците.</p>
+          </article>
+          <article class="tip card">
+            <span class="tip-emoji" aria-hidden="true">🚶</span>
+            <h3>Больше шагов</h3>
+            <p>7–9 тысяч шагов в день сжигают больше, чем редкие интенсивные тренировки, и почти не утомляют.</p>
+          </article>
+          <article class="tip card">
+            <span class="tip-emoji" aria-hidden="true">😴</span>
+            <h3>Сон 7–8 часов</h3>
+            <p>Недосып повышает голод и тягу к сладкому. Сон — самый недооценённый инструмент похудения.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a class="brand" href="#top">
+          <svg class="brand-mark"><use href="#i-logo"></use></svg>
+          <span class="brand-name">Диёр</span>
+        </a>
+        <p class="footer-note">
+          Сайт носит информационный характер и не заменяет консультацию врача.
+          При заболеваниях, беременности или расстройствах питания сначала обсуди план со специалистом.
+        </p>
+      </div>
+      <nav class="footer-nav" aria-label="Навигация в подвале">
+        <a href="#calculator">Калькулятор</a>
+        <a href="#workouts">Тренировки</a>
+        <a href="#timer">Таймер</a>
+        <a href="#diary">Дневник</a>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year">2026</span> Диёр · личный проект</span>
+      <span>Сделано с заботой о здоровье</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
